@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1440">
+    <title>小红书封面</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', 'Source Han Sans CN', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            width: 1080px;
+            height: 1440px;
+            overflow: hidden;
+        }
+        
+        .cover-container {
+            width: 1080px;
+            height: 1440px;
+            background: linear-gradient(180deg, #3450E4 0%, #D266DA 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover-inner {
+            position: absolute;
+            width: 950px;
+            height: 1310px;
+            left: 65px;
+            top: 65px;
+            background: #F3F3F3;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 85px;
+        }
+        
+        .cover-emoji {
+            font-size: 180px;
+            line-height: 1.2;
+            margin-bottom: 50px;
+        }
+        
+        .cover-title {
+            font-weight: 900;
+            font-size: 130px;
+            line-height: 1.4;
+            background: linear-gradient(180deg, #2E67B1 0%, #4C4C4C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            word-break: break-all;
+        }
+        
+        .cover-subtitle {
+            font-weight: 350;
+            font-size: 72px;
+            line-height: 1.4;
+            color: #000000;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover-container">
+        <div class="cover-inner">
+            <div class="cover-emoji">{{EMOJI}}</div>
+            <div class="cover-title">{{TITLE}}</div>
+            <div class="cover-subtitle">{{SUBTITLE}}</div>
+        </div>
+    </div>
+</body>
+</html>

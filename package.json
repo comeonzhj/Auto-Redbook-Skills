@@ -1,0 +1,23 @@
+{
+  "name": "md2redbook",
+  "version": "1.0.0",
+  "description": "小红书笔记卡片渲染工具 - Node.js 版本",
+  "main": "scripts/render_xhs.js",
+  "scripts": {
+    "render": "node scripts/render_xhs.js"
+  },
+  "dependencies": {
+    "marked": "^11.0.0",
+    "js-yaml": "^4.1.0",
+    "playwright": "^1.40.0"
+  },
+  "keywords": [
+    "xiaohongshu",
+    "markdown",
+    "image",
+    "card",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT"
+}

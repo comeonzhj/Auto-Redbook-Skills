@@ -1,0 +1,16 @@
+# 小红书笔记创作技能 - Python 依赖
+
+# Markdown 解析
+markdown>=3.4.0
+
+# YAML 解析
+PyYAML>=6.0
+
+# 图片渲染 (使用 Playwright)
+playwright>=1.40.0
+
+# 小红书 API 客户端
+xhs
+
+# 环境变量加载
+python-dotenv>=1.0.0
