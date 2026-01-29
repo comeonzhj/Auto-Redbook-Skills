@@ -18,27 +18,15 @@
 
 ---
 
-## 🖼 主题效果示例（来自 `demos`）
+## 🖼 主题效果示例
 
 > 所有示例均为 1080×1440px，小红书推荐 3:4 比例
+> 更多示例去 [demo](/demos) 中查看  
 
-### Playful Geometric（活泼几何）
-
-![Playful Geometric](demos/playful-geometric/card_1.png)
-
-### Retro（复古怀旧）
-
-![Retro](demos/retro/card_1.png)
-
-### Sketch（手绘素描）
-
-> 注意：该目录在 demos 中是大写 `Sketch`
-
-![Sketch](demos/Sketch/card_1.png)
-
-### Terminal（终端风格）
-
-![Terminal](demos/terminal/card_1.png)
+|||
+|---|---|
+|![Playful Geometric](demos/playful-geometric/card_1.png)|![Retro](demos/retro/card_1.png)|
+|![Sketch](demos/Sketch/card_1.png)|![Terminal](demos/terminal/card_1.png)|
 
 ### Auto-fit 模式示例（自动缩放）
 
