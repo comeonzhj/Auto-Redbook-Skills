@@ -210,3 +210,62 @@ XHS_COOKIE=your_cookie_string_here
 3. 图片尺寸会根据内容自动调整，但保持 3:4 比例
 4. Cookie 有有效期限制，过期后需要重新获取
 5. 发布功能依赖 xhs 库，需要安装：`pip install xhs`
+
+## Runtime Notes (Added)
+
+### Playwright/Chromium
+- If `playwright install chromium` fails (network/proxy), the renderer tries to find local Chrome/Edge.
+- You can force a browser path with `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`.
+- If you hit `ProxyError`, clear proxy env vars in the current session before render/publish.
+
+### Windows publish (PowerShell safe)
+To avoid `--desc` parsing errors, generate a short `publish.ps1` and run it:
+
+```powershell
+$root = "C:/path/to/workdir"
+Set-Location $root
+Remove-Item Env:HTTP_PROXY, Env:HTTPS_PROXY, Env:ALL_PROXY, Env:NO_PROXY -ErrorAction SilentlyContinue
+Remove-Item Env:http_proxy, Env:https_proxy, Env:all_proxy, Env:no_proxy -ErrorAction SilentlyContinue
+
+$raw = Get-Content -Raw -Path "$root/content.md"
+$desc = $raw -replace '^(?s)\s*---\s*.*?\s*---\s*\r?\n', ''
+$desc = $desc.Trim()
+
+python scripts/publish_xhs.py --title "标题" --desc "$desc" --images "$root/cover.png" "$root/card_1.png"
+```
+
+### Publish troubleshooting
+- `XHS_COOKIE` missing: ensure `.env` is in the working directory or set `XHS_COOKIE` in the session.
+- `ProxyError`: clear `HTTP_PROXY/HTTPS_PROXY` env vars and retry.
+
+### 标签格式建议（小红书识别）
+- 建议使用 `#话题#` 的双井号格式；多个话题之间用空格分隔。
+- 示例：`#健身# #新手健身# #增肌#`
+
+### 代理自动绕过（已内置）
+- `scripts/publish_xhs.py` 会自动把 `xiaohongshu.com` 和 `edith.xiaohongshu.com` 加入 `NO_PROXY`。
+- 仍然报 `ProxyError` 时，说明是系统级代理强制接管，需要在系统里关闭代理或设置例外。
+
+## Successful Workflow (Optimized)
+
+### 1) Create content + cards
+- Write `content.md` with YAML front matter + `---` separators.
+- Render cards:
+  - `python scripts/render_xhs.py content.md -t professional -m separator`
+
+### 2) Publish via PowerShell (recommended)
+- Use a local `publish.ps1` to avoid `--desc` quoting issues.
+- Ensure the script loads `XHS_COOKIE` from `.env` and strips YAML front matter.
+- Always pass `--private` when you want “draft-like” notes.
+
+### 3) Proxy/encoding fixes (built-in)
+- `publish_xhs.py` now:
+  - Sets `NO_PROXY` for `xiaohongshu.com` + `edith.xiaohongshu.com`
+  - Forces UTF-8 console output to avoid GBK emoji errors
+
+### 4) Tags / blue topics
+- API publish may not auto-blue `#话题#` even if formatted.
+- Best practice:
+  - Keep正文无`#`
+  - Put话题行最后一行: `#拉伸# #健身# ...`
+  - Open in official app, edit/save to trigger blue topics.
