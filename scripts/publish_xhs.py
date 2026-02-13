@@ -138,9 +138,9 @@ class LocalPublisher:
         cookies = parse_cookie(self.cookie)
         a1 = cookies.get('a1', '')
         
-        def sign_func(uri, data=None, a1_param="", web_session=""):
-            # 使用 cookie 中的 a1 值
-            return local_sign(uri, data, a1=a1 or a1_param)
+        def sign_func(uri, data=None, a1="", web_session=""):
+            # XhsClient 调用时传入 a1= 和 web_session=，参数名必须匹配
+            return local_sign(uri, data, a1=a1)
         
         self.client = XhsClient(cookie=self.cookie, sign=sign_func)
         
