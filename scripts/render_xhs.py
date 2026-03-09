@@ -398,7 +398,12 @@ def generate_card_html(content: str, theme: str, page_number: int = 1,
         }}
         
         {theme_css}
-        
+
+        .card-content :not(pre) > code {{
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }}
+
         .page-number {{
             position: absolute;
             bottom: 80px;
@@ -563,7 +568,7 @@ async def auto_split_content(body: str, theme: str, width: int, height: int,
                 
                 # 内容区域的可用高度（去除 padding 等）
                 available_height = height - 220  # 50*2 padding + 60*2 inner padding
-                
+
                 if content_height > available_height and current_content:
                     # 当前卡片已满，保存并开始新卡片
                     cards.append('\n\n'.join(current_content))
