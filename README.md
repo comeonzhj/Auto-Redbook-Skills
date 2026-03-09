@@ -1,5 +1,10 @@
 ## 📕 Auto-Redbook-Skills（已重构版）
 
+> **一句话安装此技能**：让你的 Agent 说：「拉取下面的项目，安装其中的技能：https://github.com/comeonzhj/Auto-Redbook-Skills 」
+
+---
+
+
 > 自动撰写小红书笔记、生成多主题卡片、可选自动发布的 Skills  
 > 当前版本对渲染脚本和样式系统做了**一次完整重构**，感谢 Cursor 的辅助开发 🙌
 
@@ -146,7 +151,7 @@ python scripts/publish_xhs.py \
 
 | 参数 | 说明 |
 |------|------|
-| `--private` | 设为私密笔记 |
+| `--public` | 公开发布（默认仅自己可见） |
 | `--post-time "2024-01-01 12:00:00"` | 定时发布 |
 | `--api-mode` | 通过 xhs-api 服务发布 |
 | `--dry-run` | 仅验证，不实际发布 |
@@ -162,6 +167,8 @@ Auto-Redbook-Skills/
 ├── requirements.txt      # Python 依赖
 ├── package.json          # Node.js 依赖
 ├── env.example.txt       # Cookie 配置示例
+├── references/           # 技能参考文档
+│   └── params.md         # 完整参数参考（主题/模式/发布参数）
 ├── assets/
 │   ├── cover.html        # 封面 HTML 模板
 │   ├── card.html         # 正文卡片 HTML 模板
@@ -185,9 +192,10 @@ Auto-Redbook-Skills/
 │   ├── Sketch/
 │   └── terminal/
 └── scripts/
-    ├── render_xhs.py     # Python 渲染脚本（支持主题 + 分页模式）
+    ├── render_xhs.py     # Python 渲染脚本（8 主题 + 4 分页模式）
+    ├── render_xhs_v2.py  # Python 渲染脚本 V2（7 渐变色彩风格）
     ├── render_xhs.js     # Node.js 渲染脚本
-    └── publish_xhs.py    # 小红书发布脚本
+    └── publish_xhs.py    # 小红书发布脚本（默认仅自己可见）
 ```
 
 ---

@@ -669,8 +669,8 @@ def main():
     parser.add_argument(
         '--theme', '-t',
         choices=AVAILABLE_THEMES,
-        default='default',
-        help='排版主题（默认: default）'
+        default='sketch',
+        help='排版主题（默认: sketch）'
     )
     parser.add_argument(
         '--mode', '-m',

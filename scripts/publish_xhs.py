@@ -155,7 +155,7 @@ class LocalPublisher:
             return None
     
     def publish(self, title: str, desc: str, images: List[str], 
-                is_private: bool = False, post_time: str = None) -> Dict[str, Any]:
+                is_private: bool = True, post_time: str = None) -> Dict[str, Any]:
         """发布图文笔记"""
         print(f"\n🚀 准备发布笔记（本地模式）...")
         print(f"  📌 标题: {title}")
@@ -268,7 +268,7 @@ class ApiPublisher:
             return None
     
     def publish(self, title: str, desc: str, images: List[str], 
-                is_private: bool = False, post_time: str = None) -> Dict[str, Any]:
+                is_private: bool = True, post_time: str = None) -> Dict[str, Any]:
         """发布图文笔记"""
         print(f"\n🚀 准备发布笔记（API 模式）...")
         print(f"  📌 标题: {title}")
@@ -317,14 +317,14 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 示例:
-  # 基本用法
+  # 基本用法（默认仅自己可见）
   python publish_xhs.py -t "我的标题" -d "正文内容" -i cover.png card_1.png card_2.png
+  
+  # 公开发布
+  python publish_xhs.py -t "我的标题" -d "正文内容" -i *.png --public
   
   # 使用 API 模式
   python publish_xhs.py -t "我的标题" -d "正文内容" -i *.png --api-mode
-  
-  # 设为私密笔记
-  python publish_xhs.py -t "我的标题" -d "正文内容" -i *.png --private
   
   # 定时发布
   python publish_xhs.py -t "我的标题" -d "正文内容" -i *.png --post-time "2024-12-01 10:00:00"
@@ -347,9 +347,9 @@ def main():
         help='图片文件路径（可以多个）'
     )
     parser.add_argument(
-        '--private',
+        '--public',
         action='store_true',
-        help='是否设为私密笔记'
+        help='公开发布（默认为仅自己可见）'
     )
     parser.add_argument(
         '--post-time',
@@ -393,7 +393,7 @@ def main():
         print(f"  📌 标题: {args.title}")
         print(f"  📝 描述: {args.desc}")
         print(f"  🖼️ 图片: {valid_images}")
-        print(f"  🔒 私密: {args.private}")
+        print(f"  🔒 私密: {not args.public}")
         print(f"  ⏰ 定时: {args.post_time or '立即发布'}")
         print(f"  📡 模式: {'API' if args.api_mode else '本地'}")
         print("\n✅ 验证通过，可以发布")
@@ -414,7 +414,7 @@ def main():
             title=args.title,
             desc=args.desc,
             images=valid_images,
-            is_private=args.private,
+            is_private=not args.public,
             post_time=args.post_time
         )
     except Exception as e:
