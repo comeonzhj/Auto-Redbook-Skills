@@ -1,0 +1,244 @@
+/* :root {
+  --page-bg: #efefef;
+  --text: #1a1a1a;
+  --muted-line: #cfcfcf;
+  --muted-block: #dddddd;
+} */
+
+:root {
+  --page-bg: #f5f5f3;
+  --text: #1a1a1a;
+  --muted-line: #d8d8d4;
+  --muted-block: #e9e9e6;
+}
+
+/* 全局 */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--page-bg);
+  color: var(--text);
+}
+
+body {
+  font-family:
+    "Songti SC",
+    "STSong",
+    "Noto Serif CJK SC",
+    "Source Han Serif SC",
+    serif;
+}
+
+.cover-body {
+  margin-top: 0;
+}
+
+.cover-body p {
+  font-size: 28px;
+  line-height: 1.95;
+  margin: 0 0 28px;
+}
+
+.cover-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* 页面容器 */
+
+.page {
+  width: 1080px;
+  min-height: 1440px;
+  padding: 58px 56px 72px;
+  box-sizing: border-box;
+  background: var(--page-bg);
+  position: relative;
+}
+
+/* 封面 */
+
+.cover-chip {
+  width: 98px;
+  height: 30px;
+  background: #c8c8c8;
+  margin-bottom: 30px;
+}
+
+.cover-line {
+  width: 100%;
+  height: 2px;
+  background: var(--muted-line);
+  margin-bottom: 72px;
+}
+
+/* 标题 */
+
+.cover-title {
+  margin: 0 0 140px;
+}
+
+/* .cover-title-line {
+  font-size: 110px;
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 14px;
+}
+
+.cover-title-line span {
+  display: inline-block;
+  background: linear-gradient(
+    to bottom,
+    transparent 62%,
+    var(--muted-block) 62%
+  );
+  padding-right: 16px;
+} */
+
+.cover-title-line {
+  font-size: 110px;
+  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+
+.cover-title-line span {
+  background: linear-gradient(
+    to bottom,
+    transparent 70%,
+    var(--muted-block) 70%
+  );
+  padding: 0 14px 6px 0;
+
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+
+/* 封面导语 */
+
+.cover-subtitle {
+  font-size: 28px;
+  line-height: 1.95;
+  margin-top: 10px;
+}
+
+/* 正文 */
+
+.article {
+  width: 100%;
+}
+
+/* 一级标题 */
+
+/* 让第一页正文和后续页面正文样式统一 */
+.cover-body h1,
+.cover-body h2,
+.article h1,
+.article h2 {
+  font-size: 54px;
+  line-height: 1.2;
+  font-weight: 700;
+  margin: 20px 0 44px;
+  letter-spacing: -0.5px;
+}
+
+/* 二级标题 */
+
+.cover-body h3,
+.article h3 {
+  font-size: 42px;
+  line-height: 1.3;
+  font-weight: 700;
+  margin: 20px 0 28px;
+}
+
+/* 段落 */
+
+.cover-body p,
+.article p {
+  font-size: 28px;
+  line-height: 1.95;
+  margin: 0 0 28px;
+}
+
+/* 列表 */
+
+.cover-body ul,
+.cover-body ol,
+.article ul,
+.article ol {
+  padding-left: 1.2em;
+  margin: 0 0 28px;
+}
+
+.cover-body li,
+.article li {
+  font-size: 28px;
+  line-height: 1.95;
+  margin-bottom: 14px;
+}
+
+/* 引用 */
+
+.cover-body blockquote,
+.article blockquote {
+  margin: 28px 0;
+  font-size: 28px;
+  line-height: 1.95;
+  border-left: none;
+  padding-left: 0;
+  color: #333;
+}
+
+/* 分割线 */
+
+.cover-body hr,
+.article hr {
+  border: none;
+  height: 2px;
+  background: var(--muted-line);
+  margin: 44px 0;
+}
+
+/* 代码块 */
+
+.cover-body pre,
+.article pre {
+  font-size: 22px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 18px 20px;
+  line-height: 1.7;
+  overflow: hidden;
+}
+
+.cover-body code,
+.article code {
+  font-size: 22px;
+  word-break: break-word;
+}
+
+/* 页码 */
+
+.page-number {
+  position: absolute;
+  bottom: 32px;
+  right: 56px;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.18);
+}
+
+.cover-body h1:first-child,
+.cover-body h2:first-child {
+  margin-top: 40px;
+}
+
+/* 最后一段不要额外间距 */
+
+.cover-body p:last-child,
+.cover-body li:last-child,
+.article p:last-child,
+.article li:last-child {
+  margin-bottom: 0;
+}

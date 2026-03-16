@@ -33,6 +33,7 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import List, Dict, Any, Optional
+from pathlib import Path
 
 try:
     import markdown
@@ -63,7 +64,8 @@ AVAILABLE_THEMES = [
     'professional',
     'retro',
     'terminal',
-    'sketch'
+    'sketch',
+    'editorial',
 ]
 
 # 分页模式
@@ -450,12 +452,17 @@ async def render_html_to_image(html_content: str, output_path: str,
             f.write(html_content)
             temp_html_path = f.name
         
+        uri = Path(temp_html_path).resolve().as_uri()
         try:
-            await page.goto(f'file://{temp_html_path}')
-            await page.wait_for_load_state('networkidle')
+            await page.goto(uri, wait_until='domcontentloaded', timeout=60000)
+
+            # 等待字体 / CSS 渲染
+            await page.wait_for_timeout(1000)
+            # await page.goto(f'file://{temp_html_path}')
+            # await page.wait_for_load_state('networkidle')
             
             # 等待字体加载
-            await page.wait_for_timeout(500)
+            # await page.wait_for_timeout(500)
             
             if mode == 'auto-fit':
                 # 自动缩放模式：对整个内容块做 transform 缩放（标题/代码块等固定 px 也会一起缩放）
