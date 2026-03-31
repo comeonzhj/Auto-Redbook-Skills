@@ -12,5 +12,7 @@
     "image-generation"
   ],
   "homepage": "https://github.com/comeonzhj/Auto-Redbook-Skills",
-  "author": "ZhangJia"
+  "author": {
+    "name": "ZhangJia"
+  }
 }

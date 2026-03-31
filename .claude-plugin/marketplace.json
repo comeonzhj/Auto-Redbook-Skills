@@ -1,12 +1,14 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "comeonzhj-Auto-Redbook-Skills",
-  "owner": "ZhangJia",
+  "owner": {
+    "name": "ZhangJia"
+  },
   "description": "小红书笔记自动创作插件：撰写内容、生成图片卡片、一键发布",
   "plugins": [
     {
       "name": "auto-redbook-skills",
-      "source": ".",
+      "source": "./",
       "description": "小红书笔记自动创作技能。支持 8 种排版主题和 4 种智能分页模式。",
       "category": "content",
       "keywords": [
