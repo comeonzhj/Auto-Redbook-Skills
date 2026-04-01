@@ -186,9 +186,7 @@ python scripts/publish_xhs.py \
 
 ```bash
 Auto-Redbook-Skills/
-├── skills/
-│   └── xhs-note-creator/
-│       └── SKILL.md      # 技能描述（Agent 使用说明）
+├── SKILL.md              # 技能描述（Agent 使用说明）
 ├── README.md             # 项目文档（你现在看到的）
 ├── requirements.txt      # Python 依赖
 ├── package.json          # Node.js 依赖
