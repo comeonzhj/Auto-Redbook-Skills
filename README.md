@@ -4,9 +4,27 @@
 
 公告地址：[关于打击AI托管运营账号的治理公告](http://xhslink.com/o/7WxTddvbmTu)
 
-**一句话安装此技能**，跟你的 Agent 说：
+### 方式一：Claude Code Plugin 安装（推荐）
+
+```bash
+# 添加本仓库为 marketplace
+/plugin marketplace add comeonzhj/Auto-Redbook-Skills
+
+# 安装插件
+/plugin install auto-redbook-skills@comeonzhj-Auto-Redbook-Skills
+```
+
+安装后运行 `/reload-plugins` 即可使用。
+
+### 方式二：一句话安装
+
+跟你的 Agent 说：
 
 > 拉取下面的项目，安装其中的技能：https://github.com/comeonzhj/Auto-Redbook-Skills
+
+### 方式三：手动安装
+
+详见下方[使用方式总览](#-使用方式总览)。
 
 ---
 

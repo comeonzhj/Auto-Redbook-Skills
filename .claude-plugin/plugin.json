@@ -1,0 +1,18 @@
+{
+  "name": "auto-redbook-skills",
+  "description": "小红书笔记自动创作技能：撰写内容、生成精美封面与正文卡片、可选一键发布。支持 8 种排版主题（sketch / neo-brutalism / botanical 等）和 4 种智能分页模式。",
+  "version": "1.0.0",
+  "category": "content",
+  "keywords": [
+    "xiaohongshu",
+    "小红书",
+    "redbook",
+    "social-media",
+    "content-creation",
+    "image-generation"
+  ],
+  "homepage": "https://github.com/comeonzhj/Auto-Redbook-Skills",
+  "author": {
+    "name": "ZhangJia"
+  }
+}
