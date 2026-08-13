@@ -16,6 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "crypto-js": "^4.2.0",
     "js-yaml": "^4.1.0",
     "marked": "^11.0.0",
     "playwright": "^1.58.0"

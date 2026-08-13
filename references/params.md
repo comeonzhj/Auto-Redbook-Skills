@@ -75,9 +75,10 @@ python scripts/publish_xhs.py --title "标题" --desc "描述" --images img1.png
 | `--desc` | `-d` | 笔记描述/正文内容 | `""` |
 | `--images` | `-i` | 图片文件路径（可多个） | 必填 |
 | `--public` | | 公开发布（默认仅自己可见） | `False` |
-| `--post-time` | | 定时发布（格式：`2024-01-01 12:00:00`） | 立即发布 |
-| `--api-mode` | | 通过 xhs-api 服务发布 | 本地模式 |
-| `--api-url` | | API 服务地址 | `http://localhost:5005` |
+| `--post-time` | | 本地时间 `YYYY-MM-DD HH:MM:SS` 或 13 位毫秒时间戳 | 立即发布 |
+| `--topics` | | 话题名称列表，不要带 `#` | 空 |
+| `--location` | | 地点关键词 | 空 |
+| `--proxy` | | HTTP/HTTPS 代理地址 | 空 |
 | `--dry-run` | | 仅验证，不实际发布 | `False` |
 
 > **注意**：默认以「仅自己可见」发布，确认内容无误后再用 `--public` 公开。
@@ -94,8 +95,8 @@ python scripts/publish_xhs.py --title "标题" --desc "描述" --images cover.pn
 # 定时发布
 python scripts/publish_xhs.py --title "标题" --desc "描述" --images *.png --post-time "2024-12-01 10:00:00" --public
 
-# API 模式
-python scripts/publish_xhs.py --title "标题" --desc "描述" --images *.png --api-mode
+# 添加话题
+python scripts/publish_xhs.py --title "标题" --desc "描述" --images *.png --public --topics AI 效率工具
 
 # 仅验证不发布
 python scripts/publish_xhs.py --title "标题" --desc "描述" --images *.png --dry-run
@@ -110,14 +111,16 @@ cp env.example.txt .env
 编辑 `.env`：
 
 ```env
-# 必需：小红书 Cookie
-XHS_COOKIE=your_cookie_string_here
-
-# 可选：API 模式服务地址
-XHS_API_URL=http://localhost:5005
+# 必需：小红书创作服务平台的完整 Cookie
+XHS_CREATOR_COOKIE=your_creator_cookie_string_here
 ```
 
-**Cookie 获取方式**：浏览器登录小红书 → F12 → Network → 任意请求的 Cookie 头，复制完整字符串。
+**Cookie 获取方式**：浏览器登录
+`https://creator.xiaohongshu.com` → F12 → Network → 刷新页面 → 选择发往
+`creator.xiaohongshu.com` 的请求 → 复制 Request Headers 中的完整 Cookie。
+
+发布实现完全包含在当前技能中。首次安装需同时执行 `pip install -r requirements.txt`
+和 `npm install`；运行时需要 Node.js 18+ 来执行本地签名算法。
 
 ---
 

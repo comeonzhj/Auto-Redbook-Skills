@@ -94,6 +94,8 @@ npm install
 npx playwright install chromium
 ```
 
+> Node.js 18+ 同时用于图片渲染和内置的小红书 Creator 请求签名。
+
 ---
 
 ## 🎨 渲染图片（Python）
@@ -148,7 +150,7 @@ node scripts/render_xhs.js demos/content.md -t terminal -m auto-split
 
 ## 📤 发布到小红书
 
-### 1. 配置 Cookie
+### 1. 配置 Creator Cookie
 
 ```bash
 cp env.example.txt .env
@@ -157,12 +159,14 @@ cp env.example.txt .env
 编辑 `.env`：
 
 ```env
-XHS_COOKIE=your_cookie_string_here
+XHS_CREATOR_COOKIE=your_creator_cookie_string_here
 ```
 
-> 获取方式：浏览器登录小红书 → F12 → Network → 任意请求的 Cookie 头，复制整串。
+> 获取方式：浏览器登录[小红书创作服务平台](https://creator.xiaohongshu.com)
+> → F12 → Network → 刷新页面 → 选择发往 `creator.xiaohongshu.com` 的请求
+> → 复制 Request Headers 中的完整 Cookie。
 
-### 2. 手动发布（可选）
+### 2. 发布图文笔记（可选）
 
 ```bash
 python scripts/publish_xhs.py \
@@ -176,9 +180,15 @@ python scripts/publish_xhs.py \
 | 参数 | 说明 |
 |------|------|
 | `--public` | 公开发布（默认仅自己可见） |
-| `--post-time "2024-01-01 12:00:00"` | 定时发布 |
-| `--api-mode` | 通过 xhs-api 服务发布 |
-| `--dry-run` | 仅验证，不实际发布 |
+| `--post-time "2026-08-14 10:00:00"` | 按本机时区定时发布，也支持 13 位毫秒时间戳 |
+| `--topics AI 效率工具` | 添加一个或多个话题，不要带 `#` |
+| `--location "上海"` | 添加地点 |
+| `--proxy http://127.0.0.1:7890` | 使用 HTTP/HTTPS 代理 |
+| `--dry-run` | 仅做本地参数验证，不登录、不上传、不发布 |
+
+发布脚本已内置 Creator 纯 HTTP 签名、素材上传和发布链路，不依赖浏览器自动化、
+外部 API 服务或其他项目目录。运行发布命令前请确保已经执行 `pip install -r requirements.txt`
+和 `npm install`。
 
 ---
 
@@ -191,6 +201,7 @@ Auto-Redbook-Skills/
 ├── requirements.txt      # Python 依赖
 ├── package.json          # Node.js 依赖
 ├── env.example.txt       # Cookie 配置示例
+├── vendor/xhs_publish_runtime/ # 内置 Creator 鉴权、签名与发布运行时
 ├── references/           # 技能参考文档
 │   └── params.md         # 完整参数参考（主题/模式/发布参数）
 ├── assets/
@@ -219,14 +230,14 @@ Auto-Redbook-Skills/
     ├── render_xhs.py     # Python 渲染脚本（8 主题 + 4 分页模式）
     ├── render_xhs_v2.py  # Python 渲染脚本 V2（7 渐变色彩风格）
     ├── render_xhs.js     # Node.js 渲染脚本
-    └── publish_xhs.py    # 小红书发布脚本（默认仅自己可见）
+    └── publish_xhs.py    # 自包含的小红书 Creator 发布脚本（默认仅自己可见）
 ```
 
 ---
 
 ## ⚠️ 注意事项
 
-1. **Cookie 安全**：不要把 `.env` 提交到 Git 或共享出去。
+1. **Cookie 安全**：不要把 `.env` 提交到 Git 或共享出去；请使用创作服务平台 Cookie。
 2. **Cookie 有效期**：过期后发布失败是正常现象，重新抓一次 Cookie 即可。
 3. **发布频率**：避免短时间内高频发布，以免触发平台风控。
 4. **图片尺寸**：默认 1080×1440px，符合小红书推荐比例。
@@ -237,7 +248,8 @@ Auto-Redbook-Skills/
 
 - [Playwright](https://playwright.dev/) - 浏览器自动化渲染
 - [Marked](https://marked.js.org/) - Markdown 解析
-- [xhs](https://github.com/ReaJason/xhs) - 小红书 API 客户端
+- ~~[xhs](https://github.com/ReaJason/xhs) - 原小红书 API 客户端（发布实现已停用）~~
+- [Spider_XHS](https://github.com/cv-cat/Spider_XHS) - 当前 Creator 纯 HTTP 登录、签名、上传与发布实现参考（基于提交 `2030f5d` 提取并内置）
 - **Cursor** - 本次重构过程中提供了极大帮助 ❤️
 
 ---

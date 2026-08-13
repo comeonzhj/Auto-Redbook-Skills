@@ -7,11 +7,15 @@ PyYAML>=6.0
 # 浏览器自动化（渲染图片）
 playwright>=1.40.0
 
-# 小红书发布
-xhs>=0.4.0
+# 小红书 Creator 纯 HTTP 发布（内置实现）
+PyExecJS>=1.5.1
+curl_cffi==0.15.0
+loguru>=0.7.0
+opencv-python>=4.8.0
+numpy>=1.24.0
 
 # 环境变量管理
 python-dotenv>=1.0.0
 
-# HTTP 请求（API 模式）
+# HTTP 请求
 requests>=2.28.0

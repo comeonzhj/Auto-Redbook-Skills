@@ -86,7 +86,9 @@ python scripts/render_xhs.py content.md -m auto-fit
 
 ### 第四步：发布小红书笔记（可选）
 
-**前置条件**：配置好 `.env` 文件中的 `XHS_COOKIE`（详见 `references/params.md`）
+**前置条件**：安装 Python 与 Node.js 依赖，并配置 `.env` 中的
+`XHS_CREATOR_COOKIE`。Cookie 必须来自已登录的
+`https://creator.xiaohongshu.com`（详见 `references/params.md`）。
 
 ```bash
 # 默认仅自己可见（推荐先预览确认）
@@ -99,6 +101,7 @@ python scripts/publish_xhs.py --title "笔记标题" --desc "笔记描述" \
 ```
 
 > **默认以「仅自己可见」发布**，加 `--public` 参数才会公开。
+> 发布链路已内置在当前技能中，不依赖外部 API 服务或其他项目目录。
 
 ---
 
