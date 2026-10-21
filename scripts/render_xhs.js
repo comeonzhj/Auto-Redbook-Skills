@@ -306,10 +306,37 @@ function generateCoverHtml(metadata, theme, width, height) {
 }
 
 /**
+ * 将 Markdown/HTML 中的本地图片内联为 base64 data URI
+ * （page.setContent 的页面是 about:blank，Chromium 禁止其加载 file:// 资源，
+ *   绝对路径也无效；内联 base64 是唯一稳妥方案）
+ */
+function rewriteLocalImages(md, baseDir) {
+    const toDataUri = (p) => {
+        if (/^(https?:|data:|file:)/i.test(p)) return p;
+        const abs = path.resolve(baseDir, p);
+        try {
+            const buf = fs.readFileSync(abs);
+            const ext = path.extname(abs).toLowerCase();
+            const mime = ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg'
+                : ext === '.webp' ? 'image/webp'
+                : ext === '.svg' ? 'image/svg+xml'
+                : 'image/png';
+            return `data:${mime};base64,` + buf.toString('base64');
+        } catch (e) {
+            console.warn('  ⚠️ 图片读取失败:', p);
+            return p;
+        }
+    };
+    let out = md.replace(/(!\[[^\]]*\]\()([^)\s]+)(\))/g, (m, a, p, b) => a + toDataUri(p) + b);
+    out = out.replace(/(src=["'])([^"']+)(["'])/g, (m, a, p, b) => a + toDataUri(p) + b);
+    return out;
+}
+
+/**
  * 生成正文卡片 HTML
  */
-function generateCardHtml(content, theme, pageNumber, totalPages, width, height, mode) {
-    const htmlContent = marked.parse(content);
+function generateCardHtml(content, theme, pageNumber, totalPages, width, height, mode, mdDir) {
+    const htmlContent = marked.parse(rewriteLocalImages(content, mdDir || '.'));
     const themeCss = loadThemeCss(theme);
     const pageText = totalPages > 1 ? `${pageNumber}/${totalPages}` : '';
     const bg = THEME_BACKGROUNDS[theme] || THEME_BACKGROUNDS['default'];
@@ -533,7 +560,7 @@ async function renderMarkdownToCards(options) {
     for (let i = 0; i < cardContents.length; i++) {
         const content = cardContents[i];
         console.log(`  📷 生成卡片 ${i + 1}/${totalCards}...`);
-        const cardHtml = generateCardHtml(content, theme, i + 1, totalCards, width, height, mode);
+        const cardHtml = generateCardHtml(content, theme, i + 1, totalCards, width, height, mode, path.dirname(path.resolve(markdownFile)));
         const cardPath = path.join(outputDir, `card_${i + 1}.png`);
         await renderHtmlToImage(cardHtml, cardPath, width, height, mode, maxHeight, dpr);
     }
